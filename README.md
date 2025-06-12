@@ -15,7 +15,8 @@ Set up PostgreSQL:
 Import "database.sql" into postgres
 
 In the script, set:
-```python 
+```python
+SECRET_KEY = ""
 DB_PARAMS = {
     "database": "url_shortner",
     "host": "localhost",
@@ -24,9 +25,17 @@ DB_PARAMS = {
     "port": "5432"
 }
 ```
+SECRET_KEY can be anything, it will be used to authorize access when adding new short urls 
+
 To run the app for testing:
 ```python
 python -m flask --app url_shortner.py run
 ```
 
+# To add new urls:
+Make a post request to "/urls/add_url/" with these headers set
+```
+Content-Type: application/json  
+Secret-Key: your_secret_key
+```
 When deploying to production make sure to use gunicorn or nginx and setup proper tls certs
